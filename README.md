@@ -1,5 +1,5 @@
 Here is my web-app: http://pdf-ask.streamlit.app
-# langchain-QA-pdf
+# Langchain QA pdf
 This is a Python script that uses the Streamlit library to create a web application for asking questions about a PDF book. Here's what the code does:
 
 1. Imports necessary libraries: streamlit for creating the web app, PyPDF2 for reading PDF files, and several other libraries from the langchain package for natural language processing tasks such as text splitting, embeddings, vector stores, question answering, and more.
