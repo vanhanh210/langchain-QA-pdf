@@ -1,5 +1,5 @@
 import streamlit as st
-from PyPDF2 import PdfReader
+from PyPDF2 import PdfFileReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
@@ -19,13 +19,16 @@ def main():
         st.warning("Please enter your OpenAI API key before uploading the PDF file and asking a question.")
         return
 
-    # upload file
-    pdf = st.file_uploader("Upload your book (pdf)", type="pdf")
+    # upload files
+    pdfs = st.file_uploader("Upload your books (pdf)", type="pdf", accept_multiple_files=True)
 
     # extract the text
-    if pdf is not None:
-        pdf_reader = PdfReader(pdf)
-        text = "\n".join([page.extract_text() for page in pdf_reader.pages])
+    if pdfs is not None:
+        all_text = ""
+        for pdf in pdfs:
+            pdf_reader = PdfFileReader(pdf)
+            text = "\n".join([page.extract_text() for page in pdf_reader.pages])
+            all_text += text + "\n"
 
         # split into chunks
         text_splitter = CharacterTextSplitter(
@@ -34,7 +37,7 @@ def main():
             chunk_overlap=200,
             length_function=len
         )
-        chunks = text_splitter.split_text(text)
+        chunks = text_splitter.split_text(all_text)
 
         # create embeddings
         embeddings = OpenAIEmbeddings(openai_api_key=api_key)
