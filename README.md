@@ -12,3 +12,19 @@ This is a Python script that uses the Streamlit library to create a web applicat
 5. Finally, the response from the Question Answering chain is displayed on the Streamlit page using the st.write() function.
 
 5. The if __name__ == '__main__': block ensures that the main() function is only executed when the script is run directly (i.e., not imported as a module).
+
+
+**Installation
+
+To install the repository, please clone this repository and install the requirements:
+
+pip install -r requirements.txt
+
+**Usage
+
+To use the application, run the main.py file with the streamlit CLI (after having installed streamlit):
+
+streamlit run app.py
+Contributing
+
+This repository is for educational purposes only and is not intended to receive further contributions. It is supposed to be used as support material for the YouTube tutorial that shows how to build the project.
