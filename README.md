@@ -14,13 +14,13 @@ This is a Python script that uses the Streamlit library to create a web applicat
 5. The if __name__ == '__main__': block ensures that the main() function is only executed when the script is run directly (i.e., not imported as a module).
 
 
-**Installation
+# Installation
 
 To install the repository, please clone this repository and install the requirements:
 
 pip install -r requirements.txt
 
-**Usage
+# Usage
 
 To use the application, run the main.py file with the streamlit CLI (after having installed streamlit):
 
