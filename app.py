@@ -16,7 +16,7 @@ def main():
     api_key = st.text_input("Enter your OpenAI API key:")
 
     if not api_key:
-        st.warning("Please enter your OpenAI API key.")
+        st.warning("Please enter your OpenAI API key before uploading the PDF file and asking a question.")
         return
 
     # upload file
