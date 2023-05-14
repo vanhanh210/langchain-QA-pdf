@@ -66,3 +66,7 @@ To run the application, follow these steps:
 4. Once the application has started, open a web browser and navigate to the URL provided by Streamlit.
 
 5. You can now use the application to perform the desired task.
+
+# Reference:
+- https://github.com/gkamradt/langchain-tutorials
+- https://github.com/alejandro-ao/langchain-ask-pdf
