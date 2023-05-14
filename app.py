@@ -1,5 +1,5 @@
 import streamlit as st
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
@@ -19,16 +19,25 @@ def main():
         st.warning("Please enter your OpenAI API key before uploading the PDF file and asking a question.")
         return
 
+    # initialize text variable
+    text = ""
+
     # upload files
     pdfs = st.file_uploader("Upload your books (pdf)", type="pdf", accept_multiple_files=True)
 
     # extract the text
     if pdfs is not None:
         all_text = ""
-        for pdf in pdfs:
-            pdf_reader = PdfFileReader(pdf)
-            text = "\n".join([page.extract_text() for page in pdf_reader.pages])
-            all_text += text + "\n"
+        if isinstance(pdfs, list):
+            # handle multiple files
+            for pdf in pdfs:
+                pdf_reader = PdfReader(pdf)
+                text = "\n".join([page.extract_text() for page in pdf_reader.pages])
+                all_text += text + "\n"
+        else:
+            # handle single file
+            pdf_reader = PdfReader(pdfs)
+            all_text = "\n".join([page.extract_text() for page in pdf_reader.pages])
 
         # split into chunks
         text_splitter = CharacterTextSplitter(
@@ -38,6 +47,12 @@ def main():
             length_function=len
         )
         chunks = text_splitter.split_text(all_text)
+
+        print("Number of chunks:", len(chunks))
+        print("Chunks:", chunks)
+        if not chunks:
+          st.warning("Upload your books (pdf),  can upload and process either a single PDF file or multiple PDF files at once")
+          return
 
         # create embeddings
         embeddings = OpenAIEmbeddings(openai_api_key=api_key)
